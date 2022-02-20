@@ -1,1 +1,1 @@
-enum Currency { inRs }
+enum Currency { inRs, usd }
