@@ -1,6 +1,7 @@
 import 'package:budget/constants/app_colors.dart';
 import 'package:budget/models/account.dart';
 import 'package:budget/services/account_service.dart';
+import 'package:budget/utils/snackbar.dart';
 import 'package:budget/widgets/button.dart';
 import 'package:budget/widgets/j_text_field.dart';
 import 'package:flutter/material.dart';
@@ -26,36 +27,37 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
         bottomNavigationBar: JButton(
             size: 200,
             text: "Add",
+            borderRadius: 0,
             color: AppColor.secondaryColor,
             onPressed: () {
-              AccountService.saveAccount(
-                Account(
+              try {
+                Account accountDetails = Account(
                   name: AddAccountScreen.accountNameController.text,
                   initialAmount: double.parse(
                       AddAccountScreen.initialAmountController.text),
                   accountNumber: AddAccountScreen.accountNumberController.text,
                   excludeFromStat: _excludeFromStat,
-                ),
-              ).then((value) {
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  backgroundColor: Colors.lightGreen,
-                  content: Text('Account Added'),
-                ));
-                Navigator.pop(context);
-              }).catchError((onError) {
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  backgroundColor: Colors.red,
-                  content: Text(
-                      'An Error Occurred. can\'t create account. Please try again'),
-                ));
-              }).whenComplete(() {
-                AddAccountScreen.accountNameController.clear();
-                AddAccountScreen.accountNumberController.clear();
-                AddAccountScreen.initialAmountController.clear();
-                setState(() {
-                  _excludeFromStat = false;
+                );
+
+                AccountService.saveAccount(accountDetails).then((value) {
+                  JSnack.show(context: context, message: 'Account Added');
+                  Navigator.pop(context);
+                }).catchError((onError) {
+                  JSnack.show(
+                      context: context,
+                      message:
+                          'An Error Occurred. can\'t create account. Please try again');
+                }).whenComplete(() {
+                  AddAccountScreen.accountNameController.clear();
+                  AddAccountScreen.accountNumberController.clear();
+                  AddAccountScreen.initialAmountController.clear();
+                  setState(() {
+                    _excludeFromStat = false;
+                  });
                 });
-              });
+              } on Exception catch (e) {
+                JSnack.error(context: context, message: e.toString());
+              }
             }),
         body: SafeArea(
           child: SingleChildScrollView(

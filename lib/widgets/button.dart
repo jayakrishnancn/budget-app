@@ -7,21 +7,26 @@ class JButton extends StatelessWidget {
   final double height;
   final double width;
   final Color color;
+  final double borderRadius;
   final void Function()? onPressed;
-  const JButton({
-    Key? key,
-    required this.text,
-    this.size = 100,
-    this.height = 50,
-    this.width = double.infinity,
-    this.color = AppColor.primaryColor,
-    this.onPressed,
-  }) : super(key: key);
+  const JButton(
+      {Key? key,
+      required this.text,
+      this.size = 100,
+      this.height = 50,
+      this.width = double.infinity,
+      this.color = AppColor.primaryColor,
+      this.onPressed,
+      this.borderRadius = 5})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
         minimumSize: Size(width, height),
         primary: color,
         elevation: 0,
