@@ -1,4 +1,5 @@
 import 'package:budget/constants/app_colors.dart';
+import 'package:budget/widgets/button.dart';
 import 'package:budget/widgets/j_text_field.dart';
 import 'package:flutter/material.dart';
 
@@ -10,12 +11,6 @@ class AddAccountScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          actions: [
-            Container(
-              margin: const EdgeInsets.only(right: 15),
-              child: const Icon(Icons.check),
-            )
-          ],
           title: const Text("Add Account"),
         ),
         body: Padding(
@@ -36,6 +31,12 @@ class AddAccountScreen extends StatelessWidget {
                   )
                 ],
               ),
+              const Spacer(),
+              const JButton(
+                size: 200,
+                text: "Add",
+                color: AppColor.secondaryColor,
+              )
             ],
           ),
         ));
