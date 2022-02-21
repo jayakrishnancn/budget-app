@@ -1,10 +1,11 @@
 import 'package:budget/constants/app_info.dart';
 import 'package:budget/enums/currency.dart';
+import 'package:budget/enums/routes.dart';
 import 'package:budget/widgets/amount.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class HomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
         icon: const Icon(Icons.add),
         onPressed: () {
-          Navigator.of(context).pushNamed('accounts_list');
+          Navigator.pushNamed(context, Routes.listAccounts.name);
         },
         label: const Text("Add Account"),
       ),

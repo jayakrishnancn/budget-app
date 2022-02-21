@@ -1,5 +1,5 @@
 import 'package:budget/constants/app_info.dart';
-import 'package:budget/constants/routes.dart';
+import 'package:budget/enums/routes.dart';
 import 'package:budget/models/account.dart';
 import 'package:flutter/material.dart';
 

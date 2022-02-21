@@ -1,5 +1,5 @@
 import 'package:budget/constants/app_info.dart';
-import 'package:budget/screens/accounts/list.dart';
+import 'package:budget/enums/routes.dart';
 import 'package:budget/screens/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -13,16 +13,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: AppInfo.title,
-      theme: ThemeData(
-        primaryColor: Colors.red,
-        brightness: Brightness.light,
-      ),
-      home: const HomePage(),
-      routes: {
-        'home_page': (ctx) => const HomePage(),
-        'accounts_list': (ctx) => const ListAccountsScreen()
-      },
-    );
+        title: AppInfo.title,
+        theme: ThemeData(
+            primarySwatch: AppInfo.primarySwatch,
+            primaryColor: AppInfo.primaryColor,
+            appBarTheme: const AppBarTheme(
+                elevation: 0, backgroundColor: AppInfo.primaryColor),
+            floatingActionButtonTheme: const FloatingActionButtonThemeData(
+              backgroundColor: AppInfo.primaryColor,
+            )),
+        home: const HomeScreen(),
+        routes: Routes.listAccounts.routes);
   }
 }
