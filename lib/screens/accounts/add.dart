@@ -1,4 +1,6 @@
 import 'package:budget/constants/app_colors.dart';
+import 'package:budget/models/account.dart';
+import 'package:budget/services/account_service.dart';
 import 'package:budget/widgets/button.dart';
 import 'package:budget/widgets/j_text_field.dart';
 import 'package:flutter/material.dart';
@@ -14,18 +16,47 @@ class AddAccountScreen extends StatefulWidget {
 }
 
 class _AddAccountScreenState extends State<AddAccountScreen> {
-  bool excludeFromStat = false;
+  bool _excludeFromStat = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: const Text("Add Account"),
         ),
-        bottomNavigationBar: const JButton(
-          size: 200,
-          text: "Add",
-          color: AppColor.secondaryColor,
-        ),
+        bottomNavigationBar: JButton(
+            size: 200,
+            text: "Add",
+            color: AppColor.secondaryColor,
+            onPressed: () {
+              AccountService.saveAccount(
+                Account(
+                  name: AddAccountScreen.accountNameController.text,
+                  initialAmount: double.parse(
+                      AddAccountScreen.initialAmountController.text),
+                  accountNumber: AddAccountScreen.accountNumberController.text,
+                  excludeFromStat: _excludeFromStat,
+                ),
+              ).then((value) {
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  backgroundColor: Colors.lightGreen,
+                  content: Text('Account Added'),
+                ));
+                Navigator.pop(context);
+              }).catchError((onError) {
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  backgroundColor: Colors.red,
+                  content: Text(
+                      'An Error Occurred. can\'t create account. Please try again'),
+                ));
+              }).whenComplete(() {
+                AddAccountScreen.accountNameController.clear();
+                AddAccountScreen.accountNumberController.clear();
+                AddAccountScreen.initialAmountController.clear();
+                setState(() {
+                  _excludeFromStat = false;
+                });
+              });
+            }),
         body: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
@@ -38,6 +69,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                   ),
                   JTextField(
                     label: 'Initial Amount',
+                    keyboardType: TextInputType.number,
                     controller: AddAccountScreen.initialAmountController,
                   ),
                   JTextField(
@@ -50,10 +82,10 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                       const Text('Exclude from stat?'),
                       Switch(
                         activeColor: AppColor.primaryColor,
-                        value: excludeFromStat,
+                        value: _excludeFromStat,
                         onChanged: (newValue) {
                           setState(() {
-                            excludeFromStat = newValue;
+                            _excludeFromStat = newValue;
                           });
                         },
                       )

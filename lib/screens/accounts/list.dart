@@ -1,5 +1,4 @@
 import 'package:budget/constants/app_colors.dart';
-import 'package:budget/constants/app_info.dart';
 import 'package:budget/enums/routes.dart';
 import 'package:budget/models/account.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +9,7 @@ class ListAccountsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const String title = 'Accounts';
-    List<Account> accounts = [
-      Account(id: 1, name: "HDFC"),
-      Account(id: 1, name: "SBI")
-    ];
+    List<Account> accounts = [Account(name: "HDFC"), Account(name: "SBI")];
     return Scaffold(
       appBar: AppBar(
         elevation: 0,

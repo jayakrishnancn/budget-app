@@ -7,14 +7,16 @@ class JButton extends StatelessWidget {
   final double height;
   final double width;
   final Color color;
-  const JButton(
-      {Key? key,
-      required this.text,
-      this.size = 100,
-      this.height = 50,
-      this.width = double.infinity,
-      this.color = AppColor.primaryColor})
-      : super(key: key);
+  final void Function()? onPressed;
+  const JButton({
+    Key? key,
+    required this.text,
+    this.size = 100,
+    this.height = 50,
+    this.width = double.infinity,
+    this.color = AppColor.primaryColor,
+    this.onPressed,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class JButton extends StatelessWidget {
         ),
         padding: const EdgeInsets.only(left: 25, right: 25),
       ),
-      onPressed: () {},
+      onPressed: onPressed,
       child: Text(text.toUpperCase()),
     );
   }

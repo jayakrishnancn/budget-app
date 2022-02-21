@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:budget/enums/account_type.dart';
 
 class Account {
-  int id;
   String name;
   String? accountNumber;
   double initialAmount;
@@ -14,7 +13,6 @@ class Account {
   List<String> label;
 
   Account({
-    required this.id,
     required this.name,
     this.accountNumber,
     this.initialAmount = 0,
@@ -24,4 +22,15 @@ class Account {
     this.accountType = AccountType.bank,
     this.label = const [],
   });
+
+  Map<String, dynamic> toJSON() {
+    return {
+      "name": name,
+      "accountNumber": accountNumber,
+      "initialAmount": initialAmount,
+      "color": color.value,
+      "excludeFromStat": excludeFromStat,
+      "accountType": accountType.value,
+    };
+  }
 }
