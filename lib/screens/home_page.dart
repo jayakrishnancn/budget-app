@@ -23,10 +23,12 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      floatingActionButton: FloatingActionButton.extended(
+        icon: const Icon(Icons.add),
+        onPressed: () {
+          Navigator.of(context).pushNamed('accounts_list');
+        },
+        label: const Text("Add Account"),
       ),
     );
   }

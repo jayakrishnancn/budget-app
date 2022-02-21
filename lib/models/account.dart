@@ -19,7 +19,7 @@ class Account {
     this.description,
     this.initialAmount = 0,
     this.icon = const Icon(Icons.menu),
-    this.color = AppInfo.defaultColor,
+    this.color = AppInfo.primaryColor,
     this.excludeFromStat = false,
     this.accountType = AccountType.bank,
     this.label = const [],

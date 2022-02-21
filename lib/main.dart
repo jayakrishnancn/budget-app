@@ -1,5 +1,6 @@
 import 'package:budget/constants/app_info.dart';
-import 'package:budget/screens/accounts_list_screen.dart';
+import 'package:budget/screens/accounts/list.dart';
+import 'package:budget/screens/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,9 +15,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: AppInfo.title,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Colors.red,
+        brightness: Brightness.light,
       ),
-      home: const AccountsListScreen(),
+      home: const HomePage(),
+      routes: {
+        'home_page': (ctx) => const HomePage(),
+        'accounts_list': (ctx) => const ListAccountsScreen()
+      },
     );
   }
 }
