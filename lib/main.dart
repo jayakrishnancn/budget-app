@@ -1,4 +1,5 @@
 import 'package:budget/constants/app_info.dart';
+import 'package:budget/constants/app_colors.dart';
 import 'package:budget/enums/routes.dart';
 import 'package:budget/screens/home_page.dart';
 import 'package:flutter/material.dart';
@@ -15,12 +16,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: AppInfo.title,
         theme: ThemeData(
-            primarySwatch: AppInfo.primarySwatch,
-            primaryColor: AppInfo.primaryColor,
+            primarySwatch: AppColor.primarySwatch,
+            primaryColor: AppColor.primaryColor,
             appBarTheme: const AppBarTheme(
-                elevation: 0, backgroundColor: AppInfo.primaryColor),
+              elevation: 0,
+              backgroundColor: AppColor.primaryColor,
+            ),
             floatingActionButtonTheme: const FloatingActionButtonThemeData(
-              backgroundColor: AppInfo.primaryColor,
+              backgroundColor: AppColor.primaryColor,
             )),
         home: const HomeScreen(),
         routes: Routes.listAccounts.routes);

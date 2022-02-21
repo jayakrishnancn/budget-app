@@ -1,3 +1,4 @@
+import 'package:budget/constants/app_colors.dart';
 import 'package:budget/constants/app_info.dart';
 import 'package:budget/enums/routes.dart';
 import 'package:budget/models/account.dart';
@@ -40,18 +41,18 @@ class ListAccountsScreen extends StatelessWidget {
                             style: BorderStyle.solid,
                             color: isInList
                                 ? Colors.black12
-                                : AppInfo.primaryColor,
+                                : AppColor.primaryColor,
                             width: 1),
                       ),
                       child: Icon(isInList ? Icons.house : Icons.add,
                           size: 30,
-                          color: !isInList ? AppInfo.primaryColor : null),
+                          color: !isInList ? AppColor.primaryColor : null),
                     ),
                     title: Text(
                       isInList ? accounts[index].name : "Add Account",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: isInList ? null : AppInfo.primaryColor),
+                          color: isInList ? null : AppColor.primaryColor),
                     ),
                   ),
                 );

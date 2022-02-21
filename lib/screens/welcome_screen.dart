@@ -1,4 +1,5 @@
 import 'package:budget/constants/app_info.dart';
+import 'package:budget/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -7,7 +8,7 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppInfo.primaryColor,
+      backgroundColor: AppColor.primaryColor,
       body: SafeArea(
         child: SizedBox(
           height: double.infinity,
@@ -21,7 +22,7 @@ class WelcomeScreen extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
-                    color: AppInfo.primaryText),
+                    color: AppColor.primaryTextColor),
               ),
               SizedBox(
                 height: 20,
@@ -29,7 +30,8 @@ class WelcomeScreen extends StatelessWidget {
               Text(
                 AppInfo.desciption,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 14, color: AppInfo.primaryText),
+                style:
+                    TextStyle(fontSize: 14, color: AppColor.primaryTextColor),
               )
             ],
           ),
