@@ -3,10 +3,18 @@ import 'package:budget/widgets/button.dart';
 import 'package:budget/widgets/j_text_field.dart';
 import 'package:flutter/material.dart';
 
-class AddAccountScreen extends StatelessWidget {
+class AddAccountScreen extends StatefulWidget {
   const AddAccountScreen({Key? key}) : super(key: key);
   static final accountNameController = TextEditingController();
   static final initialAmountController = TextEditingController();
+  static final accountNumberController = TextEditingController();
+
+  @override
+  State<AddAccountScreen> createState() => _AddAccountScreenState();
+}
+
+class _AddAccountScreenState extends State<AddAccountScreen> {
+  bool excludeFromStat = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,17 +25,30 @@ class AddAccountScreen extends StatelessWidget {
           padding: const EdgeInsets.all(15),
           child: Column(
             children: [
-              const JTextField(label: 'Account Name'),
-              const JTextField(label: 'Initial Amount'),
-              const JTextField(label: 'Account Number'),
+              JTextField(
+                label: 'Account Name',
+                controller: AddAccountScreen.accountNameController,
+              ),
+              JTextField(
+                label: 'Initial Amount',
+                controller: AddAccountScreen.initialAmountController,
+              ),
+              JTextField(
+                label: 'Account Number',
+                controller: AddAccountScreen.accountNumberController,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text('Exclude from stat?'),
                   Switch(
                     activeColor: AppColor.primaryColor,
-                    value: true,
-                    onChanged: (newValue) {},
+                    value: excludeFromStat,
+                    onChanged: (newValue) {
+                      setState(() {
+                        excludeFromStat = newValue;
+                      });
+                    },
                   )
                 ],
               ),
