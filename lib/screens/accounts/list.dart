@@ -20,7 +20,7 @@ class ListAccountsScreen extends StatelessWidget {
         title: const Text(title),
       ),
       body: SafeArea(
-        child: Container(
+        child: Padding(
           padding: const EdgeInsets.all(10),
           child: ListView.builder(
               itemCount: accounts.length + 1,

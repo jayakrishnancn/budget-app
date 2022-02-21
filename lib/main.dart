@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
               backgroundColor: AppColor.primaryColor,
             ),
             floatingActionButtonTheme: const FloatingActionButtonThemeData(
-              backgroundColor: AppColor.primaryColor,
+              backgroundColor: AppColor.secondaryColor,
             )),
         home: const HomeScreen(),
         routes: Routes.listAccounts.routes);

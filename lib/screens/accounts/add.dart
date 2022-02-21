@@ -21,44 +21,47 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
         appBar: AppBar(
           title: const Text("Add Account"),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(15),
-          child: Column(
-            children: [
-              JTextField(
-                label: 'Account Name',
-                controller: AddAccountScreen.accountNameController,
-              ),
-              JTextField(
-                label: 'Initial Amount',
-                controller: AddAccountScreen.initialAmountController,
-              ),
-              JTextField(
-                label: 'Account Number',
-                controller: AddAccountScreen.accountNumberController,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        bottomNavigationBar: const JButton(
+          size: 200,
+          text: "Add",
+          color: AppColor.secondaryColor,
+        ),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Column(
                 children: [
-                  const Text('Exclude from stat?'),
-                  Switch(
-                    activeColor: AppColor.primaryColor,
-                    value: excludeFromStat,
-                    onChanged: (newValue) {
-                      setState(() {
-                        excludeFromStat = newValue;
-                      });
-                    },
-                  )
+                  JTextField(
+                    label: 'Account Name',
+                    controller: AddAccountScreen.accountNameController,
+                  ),
+                  JTextField(
+                    label: 'Initial Amount',
+                    controller: AddAccountScreen.initialAmountController,
+                  ),
+                  JTextField(
+                    label: 'Account Number',
+                    controller: AddAccountScreen.accountNumberController,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Exclude from stat?'),
+                      Switch(
+                        activeColor: AppColor.primaryColor,
+                        value: excludeFromStat,
+                        onChanged: (newValue) {
+                          setState(() {
+                            excludeFromStat = newValue;
+                          });
+                        },
+                      )
+                    ],
+                  ),
                 ],
               ),
-              const Spacer(),
-              const JButton(
-                size: 200,
-                text: "Add",
-                color: AppColor.secondaryColor,
-              )
-            ],
+            ),
           ),
         ));
   }
