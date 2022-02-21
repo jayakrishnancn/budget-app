@@ -1,4 +1,5 @@
 import 'package:budget/constants/app_info.dart';
+import 'package:budget/enums/currency.dart';
 import 'package:budget/widgets/amount.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,7 @@ class HomePage extends StatelessWidget {
           children: const <Widget>[
             Amount(
               amount: 10,
+              currency: Currency.inRs,
             ),
           ],
         ),
