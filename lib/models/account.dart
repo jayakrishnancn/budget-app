@@ -1,6 +1,5 @@
 import 'package:budget/constants/app_colors.dart';
 import 'package:budget/models/model.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:budget/enums/account_type.dart';
 
@@ -25,6 +24,7 @@ class Account extends Model {
     this.label = const [],
   });
 
+  @override
   Map<String, dynamic> toJSON() => {
         "name": name,
         "accountNumber": accountNumber,

@@ -1,6 +1,8 @@
 import 'package:budget/constants/app_colors.dart';
+import 'package:budget/constants/design_system.dart';
 import 'package:budget/models/account.dart';
 import 'package:budget/services/account_service.dart';
+import 'package:budget/utils/math.dart';
 import 'package:budget/utils/snackbar.dart';
 import 'package:budget/widgets/button.dart';
 import 'package:budget/widgets/j_text_field.dart';
@@ -18,29 +20,59 @@ class AddAccountScreen extends StatefulWidget {
 
 class _AddAccountScreenState extends State<AddAccountScreen> {
   bool _excludeFromStat = false;
+  Account? account;
+
+  @override
+  void didChangeDependencies() {
+    Account? account = ModalRoute.of(context)!.settings.arguments as Account?;
+
+    AddAccountScreen.accountNameController.text = account?.name ?? '';
+    AddAccountScreen.accountNumberController.text =
+        account?.accountNumber ?? '';
+    AddAccountScreen.initialAmountController.text =
+        account?.initialAmount.toString() ?? '0';
+    setState(() {
+      this.account = account;
+      _excludeFromStat = account?.excludeFromStat ?? false;
+    });
+
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
+    bool isUpdate = account != null;
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Add Account"),
+          title: Text("${isUpdate ? "Update" : "Add"} Account"),
+          actions: isUpdate
+              ? [
+                  Container(
+                      margin: const EdgeInsets.only(right: Inset.lg),
+                      child: const Icon(Icons.delete))
+                ]
+              : null,
         ),
         bottomNavigationBar: JButton(
             size: 200,
-            text: "Add",
+            text: isUpdate ? "Update" : "Add",
             borderRadius: 0,
             color: AppColor.secondaryColor,
             onPressed: () {
               try {
                 Account accountDetails = Account(
                   name: AddAccountScreen.accountNameController.text,
-                  initialAmount: double.parse(
-                      AddAccountScreen.initialAmountController.text),
+                  initialAmount: Math.roundString(
+                          AddAccountScreen.initialAmountController.text)
+                      .toDouble(),
                   accountNumber: AddAccountScreen.accountNumberController.text,
                   excludeFromStat: _excludeFromStat,
                 );
 
                 AccountService.saveAccount(accountDetails).then((value) {
-                  JSnack.show(context: context, message: 'Account Added');
+                  JSnack.show(
+                      context: context,
+                      message: 'Account ${isUpdate ? "Updated" : "Added"}');
                   Navigator.pop(context, true);
                 }).catchError((onError) {
                   JSnack.show(
@@ -62,7 +94,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
         body: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.all(Inset.lg),
               child: Column(
                 children: [
                   JTextField(

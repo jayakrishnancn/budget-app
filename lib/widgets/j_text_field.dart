@@ -1,4 +1,5 @@
 import 'package:budget/constants/app_colors.dart';
+import 'package:budget/constants/design_system.dart';
 import 'package:flutter/material.dart';
 
 class JTextField extends StatelessWidget {
@@ -16,7 +17,7 @@ class JTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 15),
+      padding: const EdgeInsets.only(bottom: Inset.lg),
       child: TextField(
         controller: controller,
         keyboardType: keyboardType,

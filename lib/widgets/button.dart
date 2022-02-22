@@ -1,4 +1,5 @@
 import 'package:budget/constants/app_colors.dart';
+import 'package:budget/constants/design_system.dart';
 import 'package:flutter/material.dart';
 
 class JButton extends StatelessWidget {
@@ -34,7 +35,7 @@ class JButton extends StatelessWidget {
           fontWeight: FontWeight.bold,
           fontSize: 20,
         ),
-        padding: const EdgeInsets.only(left: 25, right: 25),
+        padding: const EdgeInsets.only(left: Inset.xlg, right: Inset.xlg),
       ),
       onPressed: onPressed,
       child: Text(text.toUpperCase()),

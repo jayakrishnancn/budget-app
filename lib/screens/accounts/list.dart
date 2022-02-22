@@ -1,4 +1,5 @@
 import 'package:budget/constants/app_colors.dart';
+import 'package:budget/constants/design_system.dart';
 import 'package:budget/enums/routes.dart';
 import 'package:budget/models/account.dart';
 import 'package:budget/services/account_service.dart';
@@ -46,17 +47,19 @@ class _ListAccountsScreenState extends State<ListAccountsScreen> {
                 accounts.sort((a, b) => a.name.compareTo(b.name));
 
                 return Padding(
-                  padding: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(Inset.l),
                   child: ListView.builder(
                       itemCount: accounts.length + 1,
                       itemBuilder: (ctx, index) {
                         bool isInList = index < accounts.length;
                         return Container(
-                          margin: const EdgeInsets.only(bottom: 10),
+                          margin: const EdgeInsets.only(bottom: Inset.l),
                           child: ListTile(
                             onTap: () {
                               Navigator.of(context)
-                                  .pushNamed(Routes.addAccount.name)
+                                  .pushNamed(Routes.addAccount.name,
+                                      arguments:
+                                          isInList ? accounts[index] : null)
                                   .then((shouldReload) => setState(() {
                                         // reload on pop
                                         if (shouldReload == true) {
@@ -66,7 +69,8 @@ class _ListAccountsScreenState extends State<ListAccountsScreen> {
                                       }));
                             },
                             leading: Container(
-                              padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                              padding: const EdgeInsets.fromLTRB(
+                                  Inset.l, Inset.s, Inset.l, Inset.s),
                               decoration: BoxDecoration(
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(5)),
