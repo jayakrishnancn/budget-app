@@ -6,15 +6,22 @@ class AccountFirebaseRepo extends AccountRepo {
   String userid = 'jayakrishnancn@gmail.com';
 
   @override
-  Future<void> addAccount({required Account account}) {
+  Future<void> createAccount(Account account) {
+    return FirebaseFirestore.instance
+        .collection('users/$userid/accounts')
+        .add(account.toJSON());
+  }
+
+  @override
+  Future<void> updateAccount(Account account) {
     var docRef = FirebaseFirestore.instance
         .collection('users/$userid/accounts')
-        .doc(account.name);
+        .doc(account.id);
     return docRef.get().then((doc) {
       if (doc.exists) {
-        return Future.error('Account Already Exist');
+        return docRef.set(account.toJSON());
       }
-      return docRef.set(account.toJSON());
+      return Future.error('Account does not exist.');
     });
   }
 
@@ -26,7 +33,7 @@ class AccountFirebaseRepo extends AccountRepo {
         .collection('users/$userid/accounts')
         .get();
     for (var map in querySnapshot.docs) {
-      accounts.add(Account.fromSnap(map.data()));
+      accounts.add(Account.fromSnap(map.data(), docId: map.id));
     }
 
     return accounts;
@@ -34,6 +41,7 @@ class AccountFirebaseRepo extends AccountRepo {
 
   @override
   Future<void> deleteAccount(String id) {
+    print(id);
     return FirebaseFirestore.instance
         .collection('users/$userid/accounts')
         .doc(id)

@@ -42,10 +42,8 @@ class _ListAccountsScreenState extends State<ListAccountsScreen> {
                 return Text("${snapshot.error}");
               } else {
                 List<Account> accounts = snapshot.data!;
-
                 // sort on name
                 accounts.sort((a, b) => a.name.compareTo(b.name));
-
                 return Padding(
                   padding: const EdgeInsets.all(Inset.l),
                   child: ListView.builder(
@@ -60,12 +58,10 @@ class _ListAccountsScreenState extends State<ListAccountsScreen> {
                                   .pushNamed(Routes.addAccount.name,
                                       arguments:
                                           isInList ? accounts[index] : null)
-                                  .then((noReload) => setState(() {
+                                  .then((_) => setState(() {
                                         // reload on pop
-                                        if (noReload == null) {
-                                          accountsFuture =
-                                              AccountService.getAccounts();
-                                        }
+                                        accountsFuture =
+                                            AccountService.getAccounts();
                                       }));
                             },
                             leading: Container(

@@ -5,6 +5,7 @@ import 'package:budget/enums/account_type.dart';
 
 class Account extends Model {
   String name;
+  String? id;
   String? accountNumber;
   double initialAmount;
   Icon icon;
@@ -15,6 +16,7 @@ class Account extends Model {
 
   Account({
     required this.name,
+    this.id,
     this.accountNumber,
     this.initialAmount = 0,
     this.icon = const Icon(Icons.menu),
@@ -27,6 +29,7 @@ class Account extends Model {
   @override
   Map<String, dynamic> toJSON() => {
         "name": name,
+        "id": id,
         "accountNumber": accountNumber,
         "initialAmount": initialAmount,
         "color": color.value,
@@ -34,9 +37,10 @@ class Account extends Model {
         "accountType": accountType.value,
       };
 
-  static Account fromSnap(Map<String, dynamic> snapshotMap) {
+  static Account fromSnap(Map<String, dynamic> snapshotMap, {String? docId}) {
     return Account(
       name: snapshotMap['name'],
+      id: docId ?? snapshotMap['id'],
       accountNumber: snapshotMap['accountNumber'],
       initialAmount: snapshotMap['initialAmount'],
       color: Color(snapshotMap['color']),

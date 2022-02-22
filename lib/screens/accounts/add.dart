@@ -24,6 +24,10 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
   bool _excludeFromStat = false;
   Account? account;
 
+  void _gotoPreviousPage() {
+    Navigator.popUntil(context, ModalRoute.withName(Routes.listAccounts.name));
+  }
+
   @override
   void didChangeDependencies() {
     Account? account = ModalRoute.of(context)!.settings.arguments as Account?;
@@ -49,7 +53,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
           title: Text("${isUpdate ? "Update" : "Add"} Account"),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
-            onPressed: () => Navigator.of(context).pop(false),
+            onPressed: _gotoPreviousPage,
           ),
           actions: isUpdate
               ? [
@@ -61,9 +65,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                               context,
                               JAlertBox(
                                 title: 'Delete Account?',
-                                cancelPressed: () {
-                                  Navigator.pop(context);
-                                },
+                                cancelPressed: () => Navigator.pop(context),
                                 confirmPressed: () {
                                   if (account?.name != null) {
                                     AccountService.deleteAccount(account!.name)
@@ -71,10 +73,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                                       JSnack.show(
                                           context: context,
                                           message: 'Account Deleted');
-                                      Navigator.popUntil(
-                                          context,
-                                          ModalRoute.withName(
-                                              Routes.listAccounts.name));
+                                      _gotoPreviousPage();
                                     }).catchError((onError) {
                                       JSnack.error(
                                         context: context,
@@ -99,6 +98,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
             onPressed: () {
               try {
                 Account accountDetails = Account(
+                  id: isUpdate ? account?.id : null,
                   name: AddAccountScreen.accountNameController.text,
                   initialAmount: Math.roundString(
                           AddAccountScreen.initialAmountController.text)
@@ -106,12 +106,14 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                   accountNumber: AddAccountScreen.accountNumberController.text,
                   excludeFromStat: _excludeFromStat,
                 );
-
-                AccountService.saveAccount(accountDetails).then((value) {
+                Future<void> service = isUpdate
+                    ? AccountService.updateAccount(accountDetails)
+                    : AccountService.saveAccount(accountDetails);
+                service.then((value) {
                   JSnack.show(
                       context: context,
                       message: 'Account ${isUpdate ? "Updated" : "Added"}');
-                  Navigator.pop(context);
+                  _gotoPreviousPage();
                 }).then((e) {
                   AddAccountScreen.accountNameController.clear();
                   AddAccountScreen.accountNumberController.clear();
