@@ -7,10 +7,15 @@ class AccountFirebaseRepo extends AccountRepo {
 
   @override
   Future<void> addAccount({required Account account}) {
-    return FirebaseFirestore.instance
+    var docRef = FirebaseFirestore.instance
         .collection('users/$userid/accounts')
-        .doc(account.name)
-        .set(account.toJSON());
+        .doc(account.name);
+    return docRef.get().then((doc) {
+      if (doc.exists) {
+        return Future.error('Account Already Exist');
+      }
+      return docRef.set(account.toJSON());
+    });
   }
 
   @override

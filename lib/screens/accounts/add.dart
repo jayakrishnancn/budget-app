@@ -111,19 +111,16 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                   JSnack.show(
                       context: context,
                       message: 'Account ${isUpdate ? "Updated" : "Added"}');
-                  Navigator.pop(context, false);
-                }).catchError((onError) {
-                  JSnack.show(
-                      context: context,
-                      message:
-                          'An Error Occurred. can\'t create account. Please try again');
-                }).whenComplete(() {
+                  Navigator.pop(context);
+                }).then((e) {
                   AddAccountScreen.accountNameController.clear();
                   AddAccountScreen.accountNumberController.clear();
                   AddAccountScreen.initialAmountController.clear();
                   setState(() {
                     _excludeFromStat = false;
                   });
+                }).catchError((onError) {
+                  JSnack.error(context: context, message: onError.toString());
                 });
               } on Exception catch (e) {
                 JSnack.error(context: context, message: e.toString());
