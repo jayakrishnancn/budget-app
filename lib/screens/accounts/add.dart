@@ -1,10 +1,12 @@
 import 'package:budget/constants/app_colors.dart';
 import 'package:budget/constants/design_system.dart';
+import 'package:budget/enums/routes.dart';
 import 'package:budget/models/account.dart';
 import 'package:budget/services/account_service.dart';
 import 'package:budget/utils/math.dart';
 import 'package:budget/utils/snackbar.dart';
 import 'package:budget/widgets/button.dart';
+import 'package:budget/widgets/j_alertbox.dart';
 import 'package:budget/widgets/j_text_field.dart';
 import 'package:flutter/material.dart';
 
@@ -45,11 +47,47 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text("${isUpdate ? "Update" : "Add"} Account"),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => Navigator.of(context).pop(false),
+          ),
           actions: isUpdate
               ? [
                   Container(
                       margin: const EdgeInsets.only(right: Inset.lg),
-                      child: const Icon(Icons.delete))
+                      child: IconButton(
+                          onPressed: () {
+                            JAlertBox.show(
+                              context,
+                              JAlertBox(
+                                title: 'Delete Account?',
+                                cancelPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                confirmPressed: () {
+                                  if (account?.name != null) {
+                                    AccountService.deleteAccount(account!.name)
+                                        .then((e) {
+                                      JSnack.show(
+                                          context: context,
+                                          message: 'Account Deleted');
+                                      Navigator.popUntil(
+                                          context,
+                                          ModalRoute.withName(
+                                              Routes.listAccounts.name));
+                                    }).catchError((onError) {
+                                      JSnack.error(
+                                        context: context,
+                                        message:
+                                            'Cant delete account!. Try again.',
+                                      );
+                                    });
+                                  }
+                                },
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.delete)))
                 ]
               : null,
         ),
@@ -73,7 +111,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                   JSnack.show(
                       context: context,
                       message: 'Account ${isUpdate ? "Updated" : "Added"}');
-                  Navigator.pop(context, true);
+                  Navigator.pop(context, false);
                 }).catchError((onError) {
                   JSnack.show(
                       context: context,

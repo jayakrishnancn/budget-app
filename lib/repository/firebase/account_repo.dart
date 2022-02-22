@@ -26,4 +26,12 @@ class AccountFirebaseRepo extends AccountRepo {
 
     return accounts;
   }
+
+  @override
+  Future<void> deleteAccount(String id) {
+    return FirebaseFirestore.instance
+        .collection('users/$userid/accounts')
+        .doc(id)
+        .delete();
+  }
 }

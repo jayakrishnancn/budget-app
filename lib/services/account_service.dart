@@ -11,4 +11,8 @@ class AccountService {
   static Future<List<Account>> getAccounts() {
     return accountRepo.getAccounts();
   }
+
+  static Future<void> deleteAccount(String id) {
+    return accountRepo.deleteAccount(id);
+  }
 }

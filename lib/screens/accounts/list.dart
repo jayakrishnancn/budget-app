@@ -60,9 +60,9 @@ class _ListAccountsScreenState extends State<ListAccountsScreen> {
                                   .pushNamed(Routes.addAccount.name,
                                       arguments:
                                           isInList ? accounts[index] : null)
-                                  .then((shouldReload) => setState(() {
+                                  .then((noReload) => setState(() {
                                         // reload on pop
-                                        if (shouldReload == true) {
+                                        if (noReload == null) {
                                           accountsFuture =
                                               AccountService.getAccounts();
                                         }
