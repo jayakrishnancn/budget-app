@@ -41,7 +41,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
 
                 AccountService.saveAccount(accountDetails).then((value) {
                   JSnack.show(context: context, message: 'Account Added');
-                  Navigator.pop(context);
+                  Navigator.pop(context, true);
                 }).catchError((onError) {
                   JSnack.show(
                       context: context,
