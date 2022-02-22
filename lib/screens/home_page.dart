@@ -24,12 +24,13 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
         icon: const Icon(Icons.add),
         onPressed: () {
           Navigator.pushNamed(context, Routes.listAccounts.name);
         },
-        label: const Text("Add Account"),
+        label: const Text("Add Transaction"),
       ),
     );
   }

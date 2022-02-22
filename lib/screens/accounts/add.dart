@@ -5,6 +5,7 @@ import 'package:budget/models/account.dart';
 import 'package:budget/services/account_service.dart';
 import 'package:budget/utils/math.dart';
 import 'package:budget/utils/snackbar.dart';
+import 'package:budget/widgets/body_wrapper.dart';
 import 'package:budget/widgets/button.dart';
 import 'package:budget/widgets/j_alertbox.dart';
 import 'package:budget/widgets/j_text_field.dart';
@@ -128,43 +129,38 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                 JSnack.error(context: context, message: e.toString());
               }
             }),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(Inset.lg),
-              child: Column(
+        body: BodyWrapper(
+          child: Column(
+            children: [
+              JTextField(
+                label: 'Account Name',
+                controller: AddAccountScreen.accountNameController,
+              ),
+              JTextField(
+                label: 'Initial Amount',
+                keyboardType: TextInputType.number,
+                controller: AddAccountScreen.initialAmountController,
+              ),
+              JTextField(
+                label: 'Account Number',
+                controller: AddAccountScreen.accountNumberController,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  JTextField(
-                    label: 'Account Name',
-                    controller: AddAccountScreen.accountNameController,
-                  ),
-                  JTextField(
-                    label: 'Initial Amount',
-                    keyboardType: TextInputType.number,
-                    controller: AddAccountScreen.initialAmountController,
-                  ),
-                  JTextField(
-                    label: 'Account Number',
-                    controller: AddAccountScreen.accountNumberController,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('Exclude from stat?'),
-                      Switch(
-                        activeColor: AppColor.primaryColor,
-                        value: _excludeFromStat,
-                        onChanged: (newValue) {
-                          setState(() {
-                            _excludeFromStat = newValue;
-                          });
-                        },
-                      )
-                    ],
-                  ),
+                  const Text('Exclude from stat?'),
+                  Switch(
+                    activeColor: AppColor.primaryColor,
+                    value: _excludeFromStat,
+                    onChanged: (newValue) {
+                      setState(() {
+                        _excludeFromStat = newValue;
+                      });
+                    },
+                  )
                 ],
               ),
-            ),
+            ],
           ),
         ));
   }
