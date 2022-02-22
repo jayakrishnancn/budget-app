@@ -67,8 +67,8 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                                 title: 'Delete Account?',
                                 cancelPressed: () => Navigator.pop(context),
                                 confirmPressed: () {
-                                  if (account?.name != null) {
-                                    AccountService.deleteAccount(account!.name)
+                                  if (account?.id != null) {
+                                    AccountService.deleteAccount(account!.id!)
                                         .then((e) {
                                       JSnack.show(
                                           context: context,
