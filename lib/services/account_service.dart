@@ -5,6 +5,10 @@ import 'package:budget/repository/firebase/account_repo.dart';
 class AccountService {
   static AccountRepo accountRepo = AccountFirebaseRepo();
   static Future<void> saveAccount(Account account) {
-    return accountRepo.addAccount(userid: '100', account: account);
+    return accountRepo.addAccount(account: account);
+  }
+
+  static Future<List<Account>> getAccounts() {
+    return accountRepo.getAccounts();
   }
 }
