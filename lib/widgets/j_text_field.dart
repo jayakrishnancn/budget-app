@@ -17,7 +17,7 @@ class JTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: Inset.lg),
+      padding: const EdgeInsets.only(bottom: Inset.l),
       child: TextField(
         controller: controller,
         keyboardType: keyboardType,

@@ -14,7 +14,7 @@ class BodyWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget padding = Padding(
-      padding: const EdgeInsets.all(Inset.xlg),
+      padding: const EdgeInsets.all(Inset.xl),
       child: child,
     );
 

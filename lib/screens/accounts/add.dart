@@ -1,14 +1,14 @@
-import 'package:budget/constants/app_colors.dart';
-import 'package:budget/constants/design_system.dart';
-import 'package:budget/enums/routes.dart';
-import 'package:budget/models/account.dart';
-import 'package:budget/services/account_service.dart';
-import 'package:budget/utils/math.dart';
-import 'package:budget/utils/snackbar.dart';
-import 'package:budget/widgets/body_wrapper.dart';
-import 'package:budget/widgets/button.dart';
-import 'package:budget/widgets/j_alertbox.dart';
-import 'package:budget/widgets/j_text_field.dart';
+import '../../constants/app_colors.dart';
+import '../../constants/design_system.dart';
+import '../../enums/routes.dart';
+import '../../models/account.dart';
+import '../../services/account_service.dart';
+import '../../utils/math.dart';
+import '../../utils/snackbar.dart';
+import '../../widgets/body_wrapper.dart';
+import '../../widgets/j_button.dart';
+import '../../widgets/j_alertbox.dart';
+import '../../widgets/j_text_field.dart';
 import 'package:flutter/material.dart';
 
 class AddAccountScreen extends StatefulWidget {
@@ -59,7 +59,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
           actions: isUpdate
               ? [
                   Container(
-                      margin: const EdgeInsets.only(right: Inset.lg),
+                      margin: const EdgeInsets.only(right: Inset.l),
                       child: IconButton(
                           onPressed: () {
                             JAlertBox.show(
@@ -91,44 +91,45 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                 ]
               : null,
         ),
-        bottomNavigationBar: JButton(
-            size: 200,
-            text: isUpdate ? "Update" : "Add",
-            borderRadius: 0,
-            color: AppColor.secondaryColor,
-            onPressed: () {
-              try {
-                Account accountDetails = Account(
-                  id: isUpdate ? account?.id : null,
-                  name: AddAccountScreen.accountNameController.text,
-                  initialAmount: Math.roundString(
-                          AddAccountScreen.initialAmountController.text)
-                      .toDouble(),
-                  accountNumber: AddAccountScreen.accountNumberController.text,
-                  excludeFromStat: _excludeFromStat,
-                );
-                Future<void> service = isUpdate
-                    ? AccountService.updateAccount(accountDetails)
-                    : AccountService.saveAccount(accountDetails);
-                service.then((value) {
-                  JSnack.show(
-                      context: context,
-                      message: 'Account ${isUpdate ? "Updated" : "Added"}');
-                  _gotoPreviousPage();
-                }).then((e) {
-                  AddAccountScreen.accountNameController.clear();
-                  AddAccountScreen.accountNumberController.clear();
-                  AddAccountScreen.initialAmountController.clear();
-                  setState(() {
-                    _excludeFromStat = false;
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(Inset.l),
+          child: JButton(
+              text: isUpdate ? "Update" : "Add",
+              onPressed: () {
+                try {
+                  Account accountDetails = Account(
+                    id: isUpdate ? account?.id : null,
+                    name: AddAccountScreen.accountNameController.text,
+                    initialAmount: Math.roundString(
+                            AddAccountScreen.initialAmountController.text)
+                        .toDouble(),
+                    accountNumber:
+                        AddAccountScreen.accountNumberController.text,
+                    excludeFromStat: _excludeFromStat,
+                  );
+                  Future<void> service = isUpdate
+                      ? AccountService.updateAccount(accountDetails)
+                      : AccountService.saveAccount(accountDetails);
+                  service.then((value) {
+                    JSnack.show(
+                        context: context,
+                        message: 'Account ${isUpdate ? "Updated" : "Added"}');
+                    _gotoPreviousPage();
+                  }).then((e) {
+                    AddAccountScreen.accountNameController.clear();
+                    AddAccountScreen.accountNumberController.clear();
+                    AddAccountScreen.initialAmountController.clear();
+                    setState(() {
+                      _excludeFromStat = false;
+                    });
+                  }).catchError((onError) {
+                    JSnack.error(context: context, message: onError.toString());
                   });
-                }).catchError((onError) {
-                  JSnack.error(context: context, message: onError.toString());
-                });
-              } on Exception catch (e) {
-                JSnack.error(context: context, message: e.toString());
-              }
-            }),
+                } on Exception catch (e) {
+                  JSnack.error(context: context, message: e.toString());
+                }
+              }),
+        ),
         body: BodyWrapper(
           child: Column(
             children: [
