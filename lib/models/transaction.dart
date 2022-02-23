@@ -6,7 +6,7 @@ class Transaction {
   String? accountTo;
   String accountFrom;
   String category;
-  String amount;
+  double amount;
   String transactionType;
 
   Transaction({

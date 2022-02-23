@@ -7,10 +7,10 @@ import 'package:budget/utils/color.dart';
 class JToggleButton extends StatelessWidget {
   final List<String> textChildren;
   final void Function(int) onPressed;
-  int selectedIndex;
+  final int selectedIndex;
   final Color color;
 
-  JToggleButton(
+  const JToggleButton(
       {Key? key,
       required this.textChildren,
       required this.onPressed,

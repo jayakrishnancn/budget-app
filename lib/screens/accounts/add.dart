@@ -4,7 +4,7 @@ import '../../enums/routes.dart';
 import '../../models/account.dart';
 import '../../services/account_service.dart';
 import '../../utils/math.dart';
-import '../../utils/snackbar.dart';
+import '../../widgets/snackbar.dart';
 import '../../widgets/body_wrapper.dart';
 import '../../widgets/j_button.dart';
 import '../../widgets/j_alertbox.dart';
@@ -101,8 +101,9 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                     id: isUpdate ? account?.id : null,
                     name: AddAccountScreen.accountNameController.text,
                     initialAmount: Math.roundString(
-                            AddAccountScreen.initialAmountController.text)
-                        .toDouble(),
+                                AddAccountScreen.initialAmountController.text)
+                            ?.toDouble() ??
+                        0,
                     accountNumber:
                         AddAccountScreen.accountNumberController.text,
                     excludeFromStat: _excludeFromStat,

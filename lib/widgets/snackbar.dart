@@ -4,7 +4,7 @@ class JSnack {
   static void show({
     required BuildContext context,
     required String message,
-    Color backgroundColor = Colors.green,
+    Color backgroundColor = Colors.black87,
   }) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       backgroundColor: backgroundColor,
