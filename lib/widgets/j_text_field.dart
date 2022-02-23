@@ -22,8 +22,9 @@ class JTextField extends StatelessWidget {
         controller: controller,
         keyboardType: keyboardType,
         decoration: InputDecoration(
+          labelStyle: const TextStyle(color: AppColor.primaryColor),
           focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: AppColor.primaryColor, width: 2),
+            borderSide: BorderSide(color: AppColor.primaryColor, width: 3),
           ),
           labelText: label,
           enabledBorder: const OutlineInputBorder(

@@ -33,12 +33,12 @@ class BorderWidth {
 }
 
 class BorderRad {
-  static const double xxl = 100;
-  static const double xl = 50;
-  static const double l = 20;
-  static const double r = 10;
-  static const double m = 8;
-  static const double s = 4;
-  static const double xs = 2;
+  static const double xxl = 48;
+  static const double xl = 24;
+  static const double l = 12;
+  static const double r = 6;
+  static const double m = 4;
+  static const double s = 2;
+  static const double xs = 1;
   static const double none = 0;
 }

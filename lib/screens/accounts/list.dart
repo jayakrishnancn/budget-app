@@ -71,8 +71,8 @@ class _ListAccountsScreenState extends State<ListAccountsScreen> {
                           padding: const EdgeInsets.fromLTRB(
                               Inset.r, Inset.s, Inset.r, Inset.s),
                           decoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(5)),
+                            borderRadius: const BorderRadius.all(
+                                Radius.circular(BorderRad.r)),
                             border: Border.all(
                                 style: BorderStyle.solid,
                                 color: isInList

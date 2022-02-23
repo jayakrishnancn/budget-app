@@ -20,7 +20,7 @@ class JButton extends StatelessWidget {
       required this.text,
       this.color,
       this.onPressed,
-      this.borderRadius = BorderRad.m,
+      this.borderRadius = BorderRad.r,
       this.iconData,
       this.textColor,
       this.style = JButtonStyle.solid,

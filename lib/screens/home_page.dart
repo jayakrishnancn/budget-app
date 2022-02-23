@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
           children: [
             JButton(
               text: 'Add Account',
-              style: JButtonStyle.outline,
+              style: JButtonStyle.solid,
               iconData: Icons.add,
               colorStyle: JButtonColorStyle.primary,
               onPressed: () {
