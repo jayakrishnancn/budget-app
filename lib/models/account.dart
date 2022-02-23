@@ -10,7 +10,7 @@ class Account extends Model {
   double initialAmount;
   Icon icon;
   Color color;
-  AccountType accountType;
+  String accountType;
   bool excludeFromStat;
   List<String> label;
 
@@ -34,7 +34,7 @@ class Account extends Model {
         "initialAmount": initialAmount,
         "color": color.value,
         "excludeFromStat": excludeFromStat,
-        "accountType": accountType.value,
+        "accountType": accountType,
       };
 
   static Account fromSnap(Map<String, dynamic> snapshotMap, {String? docId}) {
@@ -45,7 +45,7 @@ class Account extends Model {
       initialAmount: snapshotMap['initialAmount'],
       color: Color(snapshotMap['color']),
       excludeFromStat: snapshotMap['excludeFromStat'],
-      accountType: getEnum(snapshotMap['accountType']),
+      accountType: snapshotMap['accountType'],
     );
   }
 }

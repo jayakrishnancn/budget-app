@@ -1,8 +1,6 @@
-import 'package:budget/constants/app_colors.dart';
-import 'package:budget/constants/app_info.dart';
-import 'package:budget/constants/design_system.dart';
-import 'package:budget/enums/routes.dart';
-import 'package:budget/widgets/j_button.dart';
+import '../constants/app_info.dart';
+import '../enums/routes.dart';
+import '../widgets/j_button.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
