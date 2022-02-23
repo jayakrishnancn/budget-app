@@ -15,7 +15,7 @@ class AccountFirebaseRepo extends AccountRepo {
 
     final querySnapshot = await root.get();
     for (var map in querySnapshot.docs) {
-      accounts.add(Account.fromSnap(map.data(), docId: map.id));
+      accounts.add(Account.fromMap(map.data(), map.id));
     }
 
     return accounts;
@@ -25,7 +25,7 @@ class AccountFirebaseRepo extends AccountRepo {
   Future<Account> getAccount(String id) {
     return root.doc(id).get().then((value) {
       if (value.exists) {
-        Account.fromSnap(value.data()!, docId: value.id);
+        Account.fromMap(value.data()!, value.id);
       }
       throw ServiceException('can\'t find the account');
     });

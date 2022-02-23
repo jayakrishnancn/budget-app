@@ -1,8 +1,11 @@
 import 'package:budget/constants/design_system.dart';
+import 'package:budget/enums/routes.dart';
 import 'package:budget/enums/transaction.dart';
 import 'package:budget/models/account.dart';
 import 'package:budget/models/transaction.dart';
 import 'package:budget/services/account_service.dart';
+import 'package:budget/services/transaction_service.dart';
+import 'package:budget/utils/j_navigation.dart';
 import 'package:budget/utils/math.dart';
 import 'package:budget/widgets/snackbar.dart';
 import 'package:budget/widgets/body_wrapper.dart';
@@ -65,6 +68,19 @@ class _AddTransactionState extends State<AddTransaction> {
           category: _category,
           transactionType: _transactionTypes[_transactionTypeIndex],
           accountTo: _accountTo?.id);
+      TransactionService.saveTransaction(transaction).then((value) {
+        JSnack.show(context: context, message: 'Transaction Added');
+        Navigator.pop(context);
+      }).then((e) {
+        _noteController.text = '';
+        _amountController.text = '';
+        _categoryController.text = '';
+        setState(() {
+          _accountFrom = null;
+        });
+      }).catchError((onError) {
+        JSnack.error(context: context, message: onError.toString());
+      });
     }
   }
 

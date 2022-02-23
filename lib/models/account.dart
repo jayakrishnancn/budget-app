@@ -37,7 +37,7 @@ class Account extends Model {
         "accountType": accountType,
       };
 
-  static Account fromSnap(Map<String, dynamic> snapshotMap, {String? docId}) {
+  static Account fromMap(Map<String, dynamic> snapshotMap, [String? docId]) {
     return Account(
       name: snapshotMap['name'],
       id: docId ?? snapshotMap['id'],

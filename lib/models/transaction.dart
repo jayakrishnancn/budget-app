@@ -31,9 +31,9 @@ class Transaction {
     };
   }
 
-  factory Transaction.fromMap(Map<String, dynamic> map) {
+  factory Transaction.fromMap(Map<String, dynamic> map, [String? docId]) {
     return Transaction(
-      id: map['id'],
+      id: docId ?? map['id'],
       note: map['note'],
       accountTo: map['accountTo'],
       accountFrom: map['accountFrom'] ?? '',
