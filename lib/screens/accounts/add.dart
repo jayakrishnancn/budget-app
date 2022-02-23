@@ -146,20 +146,15 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                 label: 'Account Number',
                 controller: AddAccountScreen.accountNumberController,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text('Exclude from stat?'),
-                  Switch(
-                    activeColor: AppColor.primaryColor,
-                    value: _excludeFromStat,
-                    onChanged: (newValue) {
-                      setState(() {
-                        _excludeFromStat = newValue;
-                      });
-                    },
-                  )
-                ],
+              SwitchListTile(
+                title: const Text('Exclude from stat?'),
+                activeColor: AppColor.primaryColor,
+                value: _excludeFromStat,
+                onChanged: (newValue) {
+                  setState(() {
+                    _excludeFromStat = newValue;
+                  });
+                },
               ),
             ],
           ),
