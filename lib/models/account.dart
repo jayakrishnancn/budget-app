@@ -27,7 +27,7 @@ class Account extends Model {
   });
 
   @override
-  Map<String, dynamic> toJSON() => {
+  Map<String, dynamic> toMap() => {
         "name": name,
         "id": id,
         "accountNumber": accountNumber,

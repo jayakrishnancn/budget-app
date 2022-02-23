@@ -50,11 +50,17 @@ class _ListAccountsScreenState extends State<ListAccountsScreen> {
                     itemCount: accounts.length + 1,
                     itemBuilder: (ctx, index) {
                       bool isInList = index < accounts.length;
+                      Account? account = isInList ? accounts[index] : null;
+                      Color _textColor = isInList
+                          ? account!.excludeFromStat
+                              ? Colors.grey
+                              : Colors.black
+                          : AppColor.primaryColor;
                       return ListTile(
                         onTap: () {
                           Navigator.of(context)
                               .pushNamed(Routes.addAccount.name,
-                                  arguments: isInList ? accounts[index] : null)
+                                  arguments: isInList ? account : null)
                               .then((_) => setState(() {
                                     // reload on pop
                                     accountsFuture =
@@ -75,14 +81,14 @@ class _ListAccountsScreenState extends State<ListAccountsScreen> {
                                 width: 1),
                           ),
                           child: Icon(isInList ? Icons.house : Icons.add,
-                              size: 30,
-                              color: !isInList ? AppColor.primaryColor : null),
+                              size: 30, color: _textColor),
                         ),
                         title: Text(
-                          isInList ? accounts[index].name : "Add Account",
+                          isInList ? account!.name : "Add Account",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: isInList ? null : AppColor.primaryColor),
+                            fontWeight: FontWeight.bold,
+                            color: _textColor,
+                          ),
                         ),
                       );
                     });

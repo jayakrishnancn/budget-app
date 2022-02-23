@@ -1,3 +1,3 @@
 abstract class Model {
-  Map<String, dynamic> toJSON();
+  Map<String, dynamic> toMap();
 }

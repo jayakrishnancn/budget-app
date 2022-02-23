@@ -33,7 +33,7 @@ class AccountFirebaseRepo extends AccountRepo {
 
   @override
   Future<void> createAccount(Account account) {
-    return root.add(account.toJSON());
+    return root.add(account.toMap());
   }
 
   @override
@@ -42,7 +42,7 @@ class AccountFirebaseRepo extends AccountRepo {
 
     return docRef.get().then((doc) {
       if (doc.exists) {
-        return docRef.set(account.toJSON());
+        return docRef.set(account.toMap());
       }
       return Future.error('Account does not exist.');
     }).catchError((error) {
