@@ -30,6 +30,7 @@ class ListTransaction extends StatelessWidget {
                   itemBuilder: (ctx, index) {
                     Transaction transaction = transactions[index];
                     return ListTile(
+                      isThreeLine: true,
                       leading: const CircleAvatar(
                         backgroundColor: Colors.red,
                         child: Icon(
@@ -37,12 +38,10 @@ class ListTransaction extends StatelessWidget {
                         ),
                       ),
                       title: Text(transaction.category),
-                      subtitle: transaction.note != null
-                          ? Text(
-                              transaction.note!,
-                              style: const TextStyle(color: Colors.black45),
-                            )
-                          : null,
+                      subtitle: Text(
+                        '${transaction.accountFrom}${transaction.note != null ? ("\n" + transaction.note!) : ""}',
+                        style: const TextStyle(color: Colors.black45),
+                      ),
                       trailing: Text(
                         '${transaction.transactionType == 'income' ? '+' : '-'} ${transaction.amount.toString()}',
                         style: const TextStyle(

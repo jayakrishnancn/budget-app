@@ -6,9 +6,14 @@ import '../constants/app_info.dart';
 import '../enums/routes.dart';
 import '../widgets/j_button.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +51,10 @@ class HomeScreen extends StatelessWidget {
         tooltip: "Add new transaction",
         child: const Icon(Icons.add),
         onPressed: () {
-          Navigator.pushNamed(context, Routes.addTransaction.name);
+          Navigator.pushNamed(context, Routes.addTransaction.name)
+              .then((value) {
+            setState(() {});
+          });
         },
       ),
       body: Center(
