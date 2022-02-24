@@ -1,17 +1,16 @@
 import 'package:budget/constants/design_system.dart';
-import 'package:budget/enums/routes.dart';
 import 'package:budget/enums/transaction.dart';
 import 'package:budget/models/account.dart';
 import 'package:budget/models/transaction.dart';
 import 'package:budget/services/account_service.dart';
 import 'package:budget/services/transaction_service.dart';
-import 'package:budget/utils/j_navigation.dart';
 import 'package:budget/utils/math.dart';
-import 'package:budget/widgets/snackbar.dart';
 import 'package:budget/widgets/body_wrapper.dart';
 import 'package:budget/widgets/j_button.dart';
+import 'package:budget/widgets/j_dropdown.dart';
 import 'package:budget/widgets/j_text_field.dart';
 import 'package:budget/widgets/j_togglebutton.dart';
+import 'package:budget/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
 
 class AddTransaction extends StatefulWidget {
@@ -45,7 +44,6 @@ class _AddTransactionState extends State<AddTransaction> {
           context: context, message: 'Please Select account to transfer');
       return false;
     }
-    print('[jk] $_amount');
     if (_accountFrom == null) {
       JSnack.show(context: context, message: 'Please Select account from');
       return false;
@@ -135,39 +133,31 @@ class _AddTransactionState extends State<AddTransaction> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
-                          child: DropdownButton(
-                            hint: const Text("Account From"),
-                            items: accounts
-                                .map((Account item) => DropdownMenuItem(
-                                      value: item,
-                                      child: Text(item.name),
-                                    ))
-                                .toList(),
+                          child: JDropdownButton<Account>(
+                            hint: "Account From",
                             value: _accountFrom,
                             onChanged: (Account? newValue) {
                               setState(() {
                                 _accountFrom = newValue;
                               });
                             },
+                            items: accounts,
+                            getChild: (Account account) => Text(account.name),
                           ),
                         ),
                         const SizedBox(width: Inset.r),
                         if (_transactionTypeIndex == 2)
                           Expanded(
-                            child: DropdownButton(
-                              hint: const Text("Account To"),
-                              items: accounts
-                                  .map((Account item) => DropdownMenuItem(
-                                        value: item,
-                                        child: Text(item.name),
-                                      ))
-                                  .toList(),
+                            child: JDropdownButton<Account>(
+                              hint: "Account To",
                               value: _accountTo,
                               onChanged: (Account? newValue) {
                                 setState(() {
                                   _accountTo = newValue;
                                 });
                               },
+                              items: accounts,
+                              getChild: (Account account) => Text(account.name),
                             ),
                           )
                       ],

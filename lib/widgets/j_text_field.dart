@@ -24,11 +24,13 @@ class JTextField extends StatelessWidget {
         decoration: InputDecoration(
           labelStyle: const TextStyle(color: AppColor.primaryColor),
           focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: AppColor.primaryColor, width: 3),
+            borderSide:
+                BorderSide(color: AppColor.primaryColor, width: BorderWidth.r),
           ),
           labelText: label,
           enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(width: 2, color: Colors.black12)),
+              borderSide: BorderSide(
+                  width: BorderWidth.r, color: AppColor.borderColor)),
           border: const OutlineInputBorder(),
         ),
       ),

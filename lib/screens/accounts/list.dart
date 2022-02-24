@@ -76,7 +76,7 @@ class _ListAccountsScreenState extends State<ListAccountsScreen> {
                             border: Border.all(
                                 style: BorderStyle.solid,
                                 color: isInList
-                                    ? Colors.black12
+                                    ? AppColor.borderColor
                                     : AppColor.primaryColor,
                                 width: 1),
                           ),
