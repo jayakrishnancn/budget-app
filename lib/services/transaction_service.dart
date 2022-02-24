@@ -12,7 +12,7 @@ class TransactionService {
     return transactionRepo.createTransaction(transaction);
   }
 
-  static Future<List<Transaction>> getTransaction() {
+  static Future<List<Transaction>> getTransactions() {
     return transactionRepo.getTransactions();
   }
 

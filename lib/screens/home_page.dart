@@ -1,4 +1,5 @@
 import 'package:budget/constants/app_colors.dart';
+import 'package:budget/screens/transaction/list.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app_info.dart';
@@ -50,7 +51,6 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             JButton(
               text: 'Add Account',
@@ -60,7 +60,8 @@ class HomeScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.pushNamed(context, Routes.listAccounts.name);
               },
-            )
+            ),
+            Expanded(child: ListTransaction())
           ],
         ),
       ),
