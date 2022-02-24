@@ -10,7 +10,6 @@ class AppColor {
   static const Color primaryTextColor = Color(0xFFffffff);
   static const Color secondaryTextColor = Color(0xFF000000);
 
-  static const Color primaryText = Colors.white;
   static const MaterialColor primarySwatch = Colors.blue;
 
   static const Color borderColor = Colors.black12;
