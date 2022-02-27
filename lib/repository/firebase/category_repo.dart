@@ -14,7 +14,7 @@ class CategoryFirebaseRepo extends CategoryRepo {
 
     final querySnapshot = await root.get();
     for (var map in querySnapshot.docs) {
-      categories.add(Category.fromMap(map.data()));
+      categories.add(Category.fromMap(map.data(), map.id));
     }
 
     return categories;

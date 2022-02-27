@@ -64,7 +64,7 @@ class _AddTransactionState extends State<AddTransaction> {
           note: _note,
           accountFrom: _accountFrom!.id!,
           amount: _amount ?? 0,
-          category: _category!.name,
+          category: _category!.idString,
           transactionType: _transactionTypes[_transactionTypeIndex],
           accountTo: _accountTo?.id);
       TransactionService.saveTransaction(transaction).then((value) {
@@ -184,6 +184,7 @@ class _AddTransactionState extends State<AddTransaction> {
                           child: JSelectCategory(
                               value: _category,
                               onSelect: (Category? category) {
+                                print(category?.toJson().toString());
                                 setState(() {
                                   _category = category;
                                 });

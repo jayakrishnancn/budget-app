@@ -6,6 +6,7 @@ import 'model.dart';
 
 class Category extends Model {
   String name;
+  String? id;
   String nature;
   Color color;
   IconData icon;
@@ -14,6 +15,7 @@ class Category extends Model {
     required this.nature,
     required this.color,
     required this.icon,
+    this.id,
   });
 
   @override
@@ -23,11 +25,15 @@ class Category extends Model {
       'nature': nature,
       'color': color.value,
       'icon': icon.codePoint,
+      'id': id
     };
   }
 
-  factory Category.fromMap(Map<String, dynamic> map) {
+  String get idString => id ?? 'unknown';
+
+  factory Category.fromMap(Map<String, dynamic> map, [String? docId]) {
     return Category(
+      id: docId ?? map['id'] ?? '',
       name: map['name'] ?? '',
       nature: map['nature'] ?? '',
       color: Color(map['color']),
