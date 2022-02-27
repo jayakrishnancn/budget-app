@@ -30,7 +30,6 @@ class _HomeScreenState extends State<HomeScreen> {
             unselectedItemColor: AppColor.primaryTextColor,
             selectedItemColor: AppColor.primaryTextColor,
             backgroundColor: Theme.of(context).primaryColor.withAlpha(0),
-            // ====================== END OF INTERESTING STUFF ==============
             items: const [
               BottomNavigationBarItem(
                   icon: Icon(
@@ -60,14 +59,29 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Center(
         child: Column(
           children: [
-            JButton(
-              text: 'Add Account',
-              style: JButtonStyle.solid,
-              iconData: Icons.add,
-              colorStyle: JButtonColorStyle.primary,
-              onPressed: () {
-                Navigator.pushNamed(context, Routes.listAccounts.name);
-              },
+            Flex(
+              direction: Axis.horizontal,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                JButton(
+                  text: 'Add Account',
+                  style: JButtonStyle.solid,
+                  iconData: Icons.add,
+                  colorStyle: JButtonColorStyle.primary,
+                  onPressed: () {
+                    Navigator.pushNamed(context, Routes.listAccounts.name);
+                  },
+                ),
+                JButton(
+                  text: 'Add Category',
+                  style: JButtonStyle.outline,
+                  color: AppColor.primaryColor,
+                  iconData: Icons.category,
+                  onPressed: () {
+                    Navigator.pushNamed(context, Routes.listCategory.name);
+                  },
+                ),
+              ],
             ),
             Expanded(child: ListTransaction())
           ],

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class JTextField extends StatelessWidget {
   final TextEditingController? controller;
   final String label;
+  final bool enabled;
   final TextInputType keyboardType;
 
   const JTextField({
@@ -12,6 +13,7 @@ class JTextField extends StatelessWidget {
     this.controller,
     required this.label,
     this.keyboardType = TextInputType.text,
+    this.enabled = true,
   }) : super(key: key);
 
   @override
@@ -19,6 +21,7 @@ class JTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: Inset.l),
       child: TextField(
+        enabled: enabled,
         controller: controller,
         keyboardType: keyboardType,
         decoration: InputDecoration(

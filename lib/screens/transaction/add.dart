@@ -1,6 +1,7 @@
 import 'package:budget/constants/design_system.dart';
 import 'package:budget/enums/transaction.dart';
 import 'package:budget/models/account.dart';
+import 'package:budget/models/category.dart';
 import 'package:budget/models/transaction.dart';
 import 'package:budget/services/account_service.dart';
 import 'package:budget/services/transaction_service.dart';
@@ -10,6 +11,7 @@ import 'package:budget/widgets/j_button.dart';
 import 'package:budget/widgets/j_dropdown.dart';
 import 'package:budget/widgets/j_text_field.dart';
 import 'package:budget/widgets/j_togglebutton.dart';
+import 'package:budget/widgets/select_category.dart';
 import 'package:budget/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
 
@@ -31,11 +33,10 @@ class _AddTransactionState extends State<AddTransaction> {
   Account? _accountFrom;
   Account? _accountTo;
   double? get _amount => Math.roundString(_amountController.text)?.toDouble();
-  String get _category => _categoryController.text;
   String get _note => _noteController.text;
+  Category? _category = null;
 
   final TextEditingController _amountController = TextEditingController();
-  final TextEditingController _categoryController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
 
   bool _isValidAddTransaction() {
@@ -51,7 +52,7 @@ class _AddTransactionState extends State<AddTransaction> {
     if (_amount == null) {
       JSnack.show(context: context, message: 'Amount field is required');
     }
-    if (_category.isEmpty) {
+    if (_category == null) {
       JSnack.show(context: context, message: 'Please enter category');
     }
     return true;
@@ -63,7 +64,7 @@ class _AddTransactionState extends State<AddTransaction> {
           note: _note,
           accountFrom: _accountFrom!.id!,
           amount: _amount ?? 0,
-          category: _category,
+          category: _category!.name,
           transactionType: _transactionTypes[_transactionTypeIndex],
           accountTo: _accountTo?.id);
       TransactionService.saveTransaction(transaction).then((value) {
@@ -72,9 +73,9 @@ class _AddTransactionState extends State<AddTransaction> {
       }).then((e) {
         _noteController.text = '';
         _amountController.text = '';
-        _categoryController.text = '';
         setState(() {
           _accountFrom = null;
+          _category = null;
         });
       }).catchError((onError) {
         JSnack.error(context: context, message: onError.toString());
@@ -180,10 +181,13 @@ class _AddTransactionState extends State<AddTransaction> {
                         width: Inset.r,
                       ),
                       Expanded(
-                          child: JTextField(
-                        label: 'Category',
-                        controller: _categoryController,
-                      )),
+                          child: JSelectCategory(
+                              value: _category,
+                              onSelect: (Category? category) {
+                                setState(() {
+                                  _category = category;
+                                });
+                              })),
                     ],
                   ),
                 ],
