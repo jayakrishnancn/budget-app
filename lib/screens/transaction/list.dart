@@ -1,3 +1,4 @@
+import 'package:budget/enums/transaction.dart';
 import 'package:budget/models/transaction.dart';
 import 'package:budget/services/transaction_service.dart';
 import 'package:flutter/material.dart';
@@ -43,9 +44,12 @@ class ListTransaction extends StatelessWidget {
                         style: const TextStyle(color: Colors.black45),
                       ),
                       trailing: Text(
-                        '${transaction.transactionType == 'income' ? '+' : '-'} ${transaction.amount.toString()}',
-                        style: const TextStyle(
-                          color: Colors.red,
+                        '${transaction.transactionType == TransactionType.income ? '+' : '-'} ${transaction.amount.toString()}',
+                        style: TextStyle(
+                          color: transaction.transactionType ==
+                                  TransactionType.income
+                              ? Colors.green
+                              : Colors.red,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

@@ -18,6 +18,7 @@ class TransactionFirebaseRepo extends TransactionRepo {
       transactions.add(Transaction.fromMap(map.data(), map.id));
     }
 
+    transactions.sort((a, b) => b.timestamp.compareTo(a.timestamp));
     return transactions;
   }
 
