@@ -21,6 +21,10 @@ class _ListAccountsScreenState extends State<ListAccountsScreen> {
     accountsFuture = AccountService.getAccounts();
   }
 
+  refresh() {
+    accountsFuture = AccountService.getAccounts();
+  }
+
   @override
   Widget build(BuildContext context) {
     const String title = 'Accounts';
@@ -29,6 +33,13 @@ class _ListAccountsScreenState extends State<ListAccountsScreen> {
       appBar: AppBar(
         elevation: 0,
         title: const Text(title),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, Routes.addCategory.name)
+              .then((e) => refresh());
+        },
+        child: const Icon(Icons.add),
       ),
       body: BodyWrapper(
         enableSingleChildScrollView: false,
@@ -47,25 +58,17 @@ class _ListAccountsScreenState extends State<ListAccountsScreen> {
                 // sort on name
                 accounts.sort((a, b) => a.name.compareTo(b.name));
                 return ListView.builder(
-                    itemCount: accounts.length + 1,
+                    itemCount: accounts.length,
                     itemBuilder: (ctx, index) {
-                      bool isInList = index < accounts.length;
-                      Account? account = isInList ? accounts[index] : null;
-                      Color _textColor = isInList
-                          ? account!.excludeFromStat
-                              ? Colors.grey
-                              : Colors.black
-                          : AppColor.primaryColor;
+                      Account? account = accounts[index];
+                      Color _textColor =
+                          account.excludeFromStat ? Colors.grey : Colors.black;
                       return ListTile(
                         onTap: () {
                           Navigator.of(context)
                               .pushNamed(Routes.addAccount.name,
-                                  arguments: isInList ? account : null)
-                              .then((_) => setState(() {
-                                    // reload on pop
-                                    accountsFuture =
-                                        AccountService.getAccounts();
-                                  }));
+                                  arguments: account)
+                              .then((_) => refresh());
                         },
                         leading: Container(
                           padding: const EdgeInsets.fromLTRB(
@@ -75,16 +78,13 @@ class _ListAccountsScreenState extends State<ListAccountsScreen> {
                                 Radius.circular(BorderRad.r)),
                             border: Border.all(
                                 style: BorderStyle.solid,
-                                color: isInList
-                                    ? AppColor.borderColor
-                                    : AppColor.primaryColor,
+                                color: AppColor.borderColor,
                                 width: 1),
                           ),
-                          child: Icon(isInList ? Icons.house : Icons.add,
-                              size: 30, color: _textColor),
+                          child: Icon(Icons.house, size: 30, color: _textColor),
                         ),
                         title: Text(
-                          isInList ? account!.name : "Add Account",
+                          account.name,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: _textColor,
