@@ -34,7 +34,7 @@ class _AddTransactionState extends State<AddTransaction> {
   Account? _accountTo;
   double? get _amount => Math.roundString(_amountController.text)?.toDouble();
   String get _note => _noteController.text;
-  Category? _category = null;
+  Category? _category;
 
   final TextEditingController _amountController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();

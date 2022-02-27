@@ -1,4 +1,3 @@
-import 'package:budget/constants/design_system.dart';
 import 'package:budget/enums/routes.dart';
 import 'package:budget/models/category.dart';
 import 'package:budget/services/category_service.dart';

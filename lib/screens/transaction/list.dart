@@ -1,6 +1,7 @@
 import 'package:budget/enums/transaction.dart';
 import 'package:budget/models/transaction.dart';
 import 'package:budget/services/transaction_service.dart';
+import 'package:budget/utils/color.dart';
 import 'package:flutter/material.dart';
 
 class ListTransaction extends StatelessWidget {
@@ -32,10 +33,11 @@ class ListTransaction extends StatelessWidget {
                     Transaction transaction = transactions[index];
                     return ListTile(
                       isThreeLine: true,
-                      leading: const CircleAvatar(
+                      leading: CircleAvatar(
                         backgroundColor: Colors.red,
                         child: Icon(
                           Icons.local_gas_station,
+                          color: getAltColor(Colors.red),
                         ),
                       ),
                       title: Text(transaction.category),
