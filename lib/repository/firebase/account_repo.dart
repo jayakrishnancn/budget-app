@@ -1,7 +1,7 @@
+import 'package:budget/exceptions/service_expception.dart';
+import 'package:budget/models/account.dart';
+import 'package:budget/repository/account_repo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../exceptions/service_expception.dart';
-import '../../models/account.dart';
-import '../account_repo.dart';
 
 class AccountFirebaseRepo extends AccountRepo {
   final String userid = 'jayakrishnancn@gmail.com';

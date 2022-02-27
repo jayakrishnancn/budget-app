@@ -51,7 +51,7 @@ class ListTransaction extends StatelessWidget {
                     Category? category = CategoryService.getCategoryFromCache(
                         transaction.category);
                     IconData categoryIconData =
-                        category?.icon ?? Icons.do_disturb;
+                        category?.iconData ?? Icons.do_disturb;
                     Color iconColor = category?.color ?? Colors.black38;
 
                     return ListTile(

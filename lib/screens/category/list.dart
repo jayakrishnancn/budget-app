@@ -16,6 +16,12 @@ class ListCategory extends StatefulWidget {
 class _ListCategoryState extends State<ListCategory> {
   Future<List<Category>> _futureCategories = CategoryService.getCategories();
 
+  refresh() {
+    setState(() {
+      _futureCategories = CategoryService.getCategories();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final bool _selectionMode =
@@ -26,11 +32,8 @@ class _ListCategoryState extends State<ListCategory> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, Routes.addCategory.name).then((value) {
-            setState(() {
-              _futureCategories = CategoryService.getCategories();
-            });
-          });
+          Navigator.pushNamed(context, Routes.addCategory.name)
+              .then((e) => refresh());
         },
         child: const Icon(Icons.add),
       ),
@@ -57,14 +60,18 @@ class _ListCategoryState extends State<ListCategory> {
                       onTap: () {
                         if (_selectionMode) {
                           Navigator.pop(context, category);
+                          return;
                         }
+                        Navigator.pushNamed(context, Routes.addCategory.name,
+                                arguments: category)
+                            .then((e) => refresh());
                       },
                       title: Text(category.name),
                       leading: InkWell(
                         child: CircleAvatar(
                             child: CircleAvatar(
                           child: Icon(
-                            category.icon,
+                            category.iconData,
                             color: getAltColor(category.color),
                           ),
                           backgroundColor: category.color,

@@ -6,6 +6,7 @@ import 'package:budget/models/category.dart';
 import 'package:budget/services/category_service.dart';
 import 'package:budget/utils/color.dart';
 import 'package:budget/widgets/body_wrapper.dart';
+import 'package:budget/widgets/j_alertbox.dart';
 import 'package:budget/widgets/j_button.dart';
 import 'package:budget/widgets/show_color_picker.dart';
 import 'package:budget/widgets/j_dropdown.dart';
@@ -26,6 +27,7 @@ class _AddCategoryState extends State<AddCategory> {
   String nature = CategoryNature.needs;
   Color _color = AppColor.secondaryColor;
   IconData? _iconData;
+  Category? _category;
 
   void _gotoPreviousPage() {
     Navigator.popUntil(context, ModalRoute.withName(Routes.listCategory.name));
@@ -36,7 +38,8 @@ class _AddCategoryState extends State<AddCategory> {
       name: _nameController.text,
       nature: nature,
       color: _color,
-      icon: _iconData ?? Icons.do_disturb,
+      iconData: _iconData ?? Icons.do_disturb,
+      id: _category?.id,
     );
 
     CategoryService.saveCategory(category).then((value) {
@@ -45,16 +48,57 @@ class _AddCategoryState extends State<AddCategory> {
     });
   }
 
+  void Function()? deleteCategory() {}
+
+  @override
+  void didChangeDependencies() {
+    _category = ModalRoute.of(context)?.settings.arguments as Category?;
+    _nameController.text = _category?.name ?? '';
+    nature = _category?.nature ?? CategoryNature.needs;
+    _iconData = _category?.iconData ?? Icons.do_disturb;
+    _color = _category?.color ?? AppColor.secondaryColor;
+
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Add category"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              JAlertBox.show(
+                context,
+                JAlertBox(
+                  title: 'Delete Account?',
+                  cancelPressed: () => Navigator.pop(context),
+                  confirmPressed: () {
+                    if (_category?.id != null) {
+                      CategoryService.deleteCategory(_category!.id!).then((e) {
+                        JSnack.show(
+                            context: context, message: 'Category Deleted');
+                        _gotoPreviousPage();
+                      }).catchError((onError) {
+                        JSnack.error(
+                          context: context,
+                          message: 'Cant delete category!. Try again.',
+                        );
+                      });
+                    }
+                  },
+                ),
+              );
+            },
+            icon: const Icon(Icons.delete),
+          ),
+        ],
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(Inset.l),
         child: JButton(
-          text: "Add Category",
+          text: _category != null ? "Update Category" : "Add Category",
           onPressed: saveCategory,
         ),
       ),
@@ -101,7 +145,7 @@ class _AddCategoryState extends State<AddCategory> {
                         }),
                     child: CircleAvatar(
                       child: Icon(
-                        _iconData ?? Icons.do_not_disturb,
+                        _iconData,
                         color: getAltColor(_color),
                       ),
                       backgroundColor: _color,

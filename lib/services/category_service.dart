@@ -7,10 +7,22 @@ class CategoryService {
   static CategoryRepo categoryRepo = CategoryFirebaseRepo();
 
   static List<Category> categories = [];
+
+  static Future<void> deleteCategory(String id) {
+    return categoryRepo.deleteCategory(id);
+  }
+
   static Future<void> saveCategory(Category category) {
     if (category.name.isEmpty) {
       throw ServiceException('Category name is mandatory');
     }
+
+    if (category.id != null) {
+      return categoryRepo.updateCategory(category).then((_) {
+        getCategories();
+      });
+    }
+
     return categoryRepo.createCategory(category).then((_) {
       getCategories();
     });

@@ -184,7 +184,6 @@ class _AddTransactionState extends State<AddTransaction> {
                           child: JSelectCategory(
                               value: _category,
                               onSelect: (Category? category) {
-                                print(category?.toJson().toString());
                                 setState(() {
                                   _category = category;
                                 });

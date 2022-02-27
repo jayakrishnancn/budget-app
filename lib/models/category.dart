@@ -9,12 +9,12 @@ class Category extends Model {
   String? id;
   String nature;
   Color color;
-  IconData icon;
+  IconData iconData;
   Category({
     required this.name,
     required this.nature,
     required this.color,
-    required this.icon,
+    required this.iconData,
     this.id,
   });
 
@@ -24,7 +24,7 @@ class Category extends Model {
       'name': name,
       'nature': nature,
       'color': color.value,
-      'icon': icon.codePoint,
+      'icon': iconData.codePoint,
       'id': id
     };
   }
@@ -37,7 +37,7 @@ class Category extends Model {
       name: map['name'] ?? '',
       nature: map['nature'] ?? '',
       color: Color(map['color']),
-      icon: IconData(map['icon'], fontFamily: 'MaterialIcons'),
+      iconData: IconData(map['icon'], fontFamily: 'MaterialIcons'),
     );
   }
 
